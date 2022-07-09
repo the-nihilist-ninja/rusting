@@ -2,9 +2,10 @@ use clap::Parser;
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::fs::File;
+use anyhow::{Context,  Result};
 
 /// Creating a grep tool
-#[derive(Parser, Debug)]
+#[derive(Parser)]
 struct Cli{
     /// Pattern to look for
     pattern: String,
@@ -14,13 +15,12 @@ struct Cli{
     path: std::path::PathBuf,
 }
 
-fn main() -> std::io::Result<()> {
+fn main() -> Result<()> {
     let args = Cli::parse();
-    println!("{:?}",args);
 
     // let content = std::fs::read_to_string(&args.path).expect("Could not read file!");
     
-    let f = File::open(&args.path)?;
+    let f = File::open(&args.path).with_context(|| format!("Unable to locate file: {}", &args.path.into_os_string().into_string().unwrap()))?;
     let reader = BufReader::new(f);
 
     for line in reader.lines() {
