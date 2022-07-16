@@ -17,8 +17,6 @@ struct Cli{
 
 fn main() -> Result<()> {
     let args = Cli::parse();
-
-    // let content = std::fs::read_to_string(&args.path).expect("Could not read file!");
     
     let f = File::open(&args.path).with_context(|| format!("Unable to locate file: {}", &args.path.into_os_string().into_string().unwrap()))?;
     let reader = BufReader::new(f);
@@ -29,13 +27,6 @@ fn main() -> Result<()> {
             println!("{}", l);
         }
     }
-
-
-    // for line in content.lines(){
-    //    if line.contains(&args.pattern){
-    //        println!("{}", line);
-    //    }
-    // }
 
     Ok(())
 }
