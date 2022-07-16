@@ -26,7 +26,7 @@ struct Record {
     runtime:f32,
     spoken_languages: String,
     status: Option<String>,
-    tagline Option<String>,
+    tagline: Option<String>,
     title: String,
     video: Option<bool>,
     vote_average: Option<f32>,
