@@ -1,8 +1,12 @@
+mod loaders;
+
 use clap::Parser;
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::fs::File;
 use anyhow::{Context,  Result};
+
+use crate::loaders::record::*;
 
 /// Creating a grep tool
 #[derive(Parser)]
